@@ -62,4 +62,37 @@ public class ApiControllers {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("Content-Type", "application/json").body(ans);
         }
     }
+
+    @PostMapping("/EliminarProducto")
+    public ResponseEntity<String> postEliminarProducto(@RequestBody Producto producto) {
+        String ans = _apiService.EliminarProducto(producto);
+        if(!ans.contains("error") && ans.contains("correctamante")){
+            return ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json").body(ans);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("Content-Type", "application/json").body(ans);
+        }
+    }
+
+    @PostMapping("/ModificarStockProducto")
+    public ResponseEntity<String> postModificarStockProducto(@RequestBody Producto producto) {
+        String ans = _apiService.ModificarStockProducto(producto);
+        if(!ans.contains("error") && ans.contains("correctamante")){
+            return ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json").body(ans);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("Content-Type", "application/json").body(ans);
+        }
+    }
+
+    @PostMapping("/TopProductosSucursal")
+    public ResponseEntity<String> postProductosMayorStock(@RequestBody Franquicia franquicia) {
+        String ans = _apiService.TopProductoSucursal(franquicia);
+        if(!ans.contains("error") && (ans.contains("correctamante") || ans.contains("{"))){
+            return ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json").body(ans);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("Content-Type", "application/json").body(ans);
+        }
+    }
 }
